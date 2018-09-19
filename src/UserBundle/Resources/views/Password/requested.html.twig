@@ -1,0 +1,9 @@
+{% extends "@DHUser/layout.html.twig" %}
+
+{% trans_default_domain 'UserBundle' %}
+
+{% block title %}Password reset{% endblock title %}
+
+{% block dh_userbundle_body %}
+    {{ 'password.request.sent'|trans({'{email}': email}) }}
+{% endblock dh_userbundle_body %}

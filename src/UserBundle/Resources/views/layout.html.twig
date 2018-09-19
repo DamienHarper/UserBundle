@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Signin{% endblock title %}</title>
+    {% block stylesheets %}{% endblock stylesheets %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+{% for type, messages in app.flashes() %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
+
+{% block dh_userbundle_body %}{% endblock dh_userbundle_body %}
+{% block javascripts %}{% endblock javascripts %}
+</body>
+</html>

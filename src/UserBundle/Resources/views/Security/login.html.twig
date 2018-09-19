@@ -1,0 +1,18 @@
+{% extends "@DHUser/layout.html.twig" %}
+
+{% trans_default_domain 'UserBundle' %}
+
+{% block dh_userbundle_body %}
+    {{ form_start(form, { method: 'POST', action: path('dh_userbundle_login') }) }}
+    {{ form_row(form._username) }}
+    {{ form_row(form._password) }}
+    <div>
+        {{ form_widget(form._token) }}
+        <button type="submit">{{ 'login.submit.button'|trans }}</button>
+    </div>
+    {{ form_end(form) }}
+
+    <div>
+        <a href="{{ path('dh_userbundle_password_request') }}" class="">{{ 'login.request_password'|trans }}</a>
+    </div>
+{% endblock dh_userbundle_body %}

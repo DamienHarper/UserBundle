@@ -1,0 +1,54 @@
+login.username.label: "Username or email"
+login.username.placeholder: "Username or email"
+login.password.label: "Password"
+login.password.placeholder: "Password"
+login.submit.button: "Signin"
+login.request_password: "I forgot my password"
+login.exception.locked_account: "This account is locked."
+login.exception.deleted_account: "Invalid credentials."
+'Invalid credentials.': "Invalid credentials."
+
+password.request.username.label: "Username or email"
+password.request.username.placeholder: "Username or email"
+password.request.button: "OK"
+password.request.invalid_username: "Invalid username."
+password.request.already_requested: "Password reset request already sent."
+password.request.email.subject: "Password reset request."
+password.request.email.text.body: |
+    Hello {username},
+
+    You recently applied for resetting your password. To complete the process, please click the link below.
+
+    <a href="{confirmationUrl}">Reset now my password </a>
+
+    This link will expire two hours after the sending of this email.
+
+    If you are the author of this application, it is likely that another user entered your email address by mistake and that the security of your account is not compromised.
+
+    Regards,
+
+    The support service.
+password.request.email.html.body: |
+    <p>Hello {username},
+    <br />
+    <br />
+    You recently applied for resetting your password. To complete the process, please click the link below.<br />
+    <br />
+    <a href="{confirmationUrl}">Reset now my password</a><br />
+    <br />
+    This link will expire two hours after the sending of this email.<br />
+    <br />
+    If you are the author of this application, it is likely that another user entered your email address by mistake and that the security of your account is not compromised.<br />
+    <br />
+    Regards,<br />
+    <br />
+    The support service.</p>
+password.request.sent: 'A confirmation email has been sent to "{email}".'
+
+password.reset.invalid_token: "Invalid token."
+password.reset.new_password: "New password"
+password.reset.new_password_confirmation: "New password (confirm)"
+password.reset.success: "Your password has been reset."
+password.reset.password.mismatch: "Password mismatch."
+password.reset.button: "OK"
+

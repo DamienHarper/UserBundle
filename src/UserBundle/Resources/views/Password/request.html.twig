@@ -1,0 +1,15 @@
+{% extends "@DHUser/layout.html.twig" %}
+
+{% trans_default_domain 'UserBundle' %}
+
+{% block title %}Password reset{% endblock title %}
+
+{% block dh_userbundle_body %}
+    {{ form_start(form, { method: 'POST', action: path('dh_userbundle_password_request_send') }) }}
+    {{ form_row(form.username) }}
+    <div>
+        {{ form_widget(form._token) }}
+        <button type="submit">{{ 'password.request.button'|trans }}</button>
+    </div>
+    {{ form_end(form) }}
+{% endblock dh_userbundle_body %}

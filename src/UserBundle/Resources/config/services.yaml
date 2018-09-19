@@ -1,0 +1,15 @@
+services:
+    dh_userbundle.user_provider:
+        class: DH\UserBundle\Security\UserProvider
+        arguments: ["@doctrine", '@security.encoder_factory', '%dh_userbundle.user_class%']
+        public: true
+
+    dh_userbundle.user_checker:
+        class: DH\UserBundle\Security\UserChecker
+        arguments: ['@doctrine']
+        public: true
+
+    dh_userbundle.mailer:
+        class: DH\UserBundle\Mailer\TwigSwiftMailer
+        arguments: ['@mailer', '@router', '@twig', { 'email_from': '%dh_userbundle.password_reset.email_from%' }]
+        public: true

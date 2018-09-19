@@ -1,0 +1,22 @@
+{% extends "@DHUser/layout.html.twig" %}
+
+{% trans_default_domain 'UserBundle' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'password.request.email.subject'|trans({'{username}': user.username, '{confirmationUrl}': confirmationUrl}) }}
+    {% endautoescape %}
+{% endblock subject %}
+
+{% block body_text %}
+    {% autoescape false %}
+    {{ 'password.request.email.text.body'|trans({'{username}': user.username, '{confirmationUrl}': confirmationUrl}) }}
+    {% endautoescape %}
+{% endblock body_text %}
+
+{% block body_html %}
+    {% autoescape false %}
+    {{ 'password.request.email.html.body'|trans({'{username}': user.username, '{confirmationUrl}': confirmationUrl}) }}
+    <a href="{{ confirmationUrl }}">{{ confirmationUrl }}</a>
+    {% endautoescape %}
+{% endblock body_html %}

@@ -1,0 +1,54 @@
+login.username.label: "Nom d'utilisateur ou email"
+login.username.placeholder: "Nom d'utilisateur ou email"
+login.password.label: "Mot de passe"
+login.password.placeholder: "Mot de passe"
+login.submit.button: "Connexion"
+login.request_password: "J'ai oublié mon mot de passe"
+login.exception.locked_account: "Ce compte est verrouillé."
+login.exception.deleted_account: "Identifiants invalides."
+'Invalid credentials.': "Identifiants invalides."
+
+password.request.username.label: "Nom d'utilisateur ou email"
+password.request.username.placeholder: "Nom d'utilisateur"
+password.request.button: "OK"
+password.request.invalid_username: "Nom d'utilisateur invalide."
+password.request.already_requested: "Demande de ré-initialisation de mot de passe déjà envoyée."
+password.request.email.subject: "Demande de ré-initialisation de mot de passe."
+password.request.email.text.body: |
+    Bonjour {username},
+
+    Vous avez récemment fait une demande de ré-initialisation de votre mot de passe. Pour terminer le processus, veuillez cliquer sur le lien ci-dessous.
+
+    <a href="{confirmationUrl}">Ré-initialiser mon mot de passe maintenant</a>;
+
+    Ce lien expirera deux heures après l’envoi de cet e-mail.
+
+    Si vous n’êtes pas l’auteur de cette demande, il est probable qu’un autre utilisateur ait saisi votre adresse e-mail par erreur et que la sécurité de votre compte ne soit pas compromise.
+
+    Cordialement,
+
+    Le service support.
+password.request.email.html.body: |
+    <p>Bonjour {username},
+    <br />
+    <br />
+    Vous avez récemment fait une demande de ré-initialisation de votre mot de passe. Pour terminer le processus, veuillez cliquer sur le lien ci-dessous.<br />
+    <br />
+    <a href="{confirmationUrl}">Ré-initialiser mon mot de passe maintenant</a><br />
+    <br />
+    Ce lien expirera deux heures après l’envoi de cet e-mail.<br />
+    <br />
+    Si vous n’êtes pas l’auteur de cette demande, il est probable qu’un autre utilisateur ait saisi votre adresse e-mail par erreur et que la sécurité de votre compte ne soit pas compromise.<br />
+    <br />
+    Cordialement,
+    <br />
+    <br />
+    Le service support.</p>
+password.request.sent: 'Un email de confirmation vient d''être envoyée à "{email}".'
+
+password.reset.invalid_token: "Token invalide."
+password.reset.new_password: "Nouveau mot de passe"
+password.reset.new_password_confirmation: "Nouveau mot de passe (confirmation)"
+password.reset.success: "Votre mot de passe à été ré-initialisé."
+password.reset.password.mismatch: "Les deux mots de passe saisis sont différents."
+password.reset.button: "OK"

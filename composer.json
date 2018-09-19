@@ -1,0 +1,22 @@
+{
+  "name": "damienharper/user-bundle",
+  "type": "symfony-bundle",
+  "description": "User Bundle",
+  "keywords": ["user"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Damien Harper",
+      "email": "damien.harper@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "doctrine/orm": "^2.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "DH\\UserBundle\\": "src/UserBundle"
+    }
+  }
+}
