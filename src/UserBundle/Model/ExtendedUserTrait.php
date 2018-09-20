@@ -18,6 +18,13 @@ trait ExtendedUserTrait
     private $password;
 
     /**
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    private $email;
+
+    /**
      * @ORM\Column(type="array")
      */
     private $roles = [];
@@ -101,6 +108,30 @@ trait ExtendedUserTrait
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of email.
+     *
+     * @return string
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email.
+     *
+     * @param string $email
+     *
+     * @return UserTrait
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
 
         return $this;
     }
