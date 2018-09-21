@@ -67,8 +67,12 @@ class PasswordController extends AbstractController
             ]);
         }
 
-        if (!$user->isPasswordRequestExpired($this->container->getParameter('dh_userbundle.password_reset.token_ttl'))) {
-            return $this->render('@DHUser/Password/already_requested.html.twig');
+        $ttl = $this->container->getParameter('dh_userbundle.password_reset.token_ttl');
+        if (!$user->isPasswordRequestExpired($ttl)) {
+            return $this->render('@DHUser/Password/already_requested.html.twig', [
+                'email' => $user->getEmail(),
+                'ttl' => $ttl / 60 / 60,
+            ]);
         }
 
         if (null === $user->getResetToken()) {
@@ -106,6 +110,7 @@ class PasswordController extends AbstractController
     public function sentAction(Request $request)
     {
         $email = $request->query->get('email');
+        $ttl = $this->container->getParameter('dh_userbundle.password_reset.token_ttl');
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
@@ -114,6 +119,7 @@ class PasswordController extends AbstractController
 
         return $this->render('@DHUser/Password/requested.html.twig', [
             'email' => $email,
+            'ttl' => $ttl / 60 / 60,
         ]);
     }
 

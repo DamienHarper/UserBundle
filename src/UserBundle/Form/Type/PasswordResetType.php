@@ -15,8 +15,14 @@ class PasswordResetType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'options' => ['translation_domain' => 'UserBundle'],
-                'first_options' => ['label' => 'password.reset.new_password'],
-                'second_options' => ['label' => 'password.reset.new_password_confirmation'],
+                'first_options' => [
+                    'label' => 'password.reset.new_password',
+                    'attr' => ['placeholder' => 'password.reset.new_password']
+                ],
+                'second_options' => [
+                    'label' => 'password.reset.new_password_confirmation',
+                    'attr' => ['placeholder' => 'password.reset.new_password_confirmation']
+                ],
                 'invalid_message' => 'password.reset.password.mismatch',
             ])
         ;

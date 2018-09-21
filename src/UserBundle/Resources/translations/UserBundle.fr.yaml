@@ -1,25 +1,31 @@
-login.username.label: "Nom d'utilisateur ou email"
-login.username.placeholder: "Nom d'utilisateur ou email"
+login.username.label: "Nom d'utilisateur ou adresse email"
+login.username.placeholder: "Nom d'utilisateur ou adresse email"
 login.password.label: "Mot de passe"
 login.password.placeholder: "Mot de passe"
 login.submit.button: "Connexion"
 login.request_password: "J'ai oublié mon mot de passe"
 login.exception.locked_account: "Ce compte est verrouillé."
 login.exception.deleted_account: "Identifiants invalides."
-'Invalid credentials.': "Identifiants invalides."
 
-password.request.username.label: "Nom d'utilisateur ou email"
-password.request.username.placeholder: "Nom d'utilisateur"
-password.request.button: "OK"
+password.request.username.label: "Nom d'utilisateur ou adresse email"
+password.request.username.placeholder: "Nom d'utilisateur ou adresse email"
+password.request.button: "Réinitialiser mon mot de passe"
 password.request.invalid_username: "Nom d'utilisateur invalide."
-password.request.already_requested: "Demande de ré-initialisation de mot de passe déjà envoyée."
-password.request.email.subject: "Demande de ré-initialisation de mot de passe."
+password.request.already_requested: |
+    Une demande de confirmation de réinitialisation de mot de passe vous a déjà été envoyée à l'adresse email suivante: <a href="mailto://{email}">{email}</a><br /><br />
+    <strong>Remarques :</strong>
+    <ul>
+    <li>Vous ne pouvez demander à réinitialiser votre mot de passe que toutes les {ttl} heures.</li>
+    <li>Si vous ne recevez pas cet email, vérifiez votre dossier spam ou essayez à nouveau.</li>
+    </ul>
+
+password.request.email.subject: "Demande de réinitialisation de mot de passe."
 password.request.email.text.body: |
     Bonjour {username},
 
-    Vous avez récemment fait une demande de ré-initialisation de votre mot de passe. Pour terminer le processus, veuillez cliquer sur le lien ci-dessous.
+    Vous avez récemment fait une demande de réinitialisation de votre mot de passe. Pour terminer le processus, veuillez cliquer sur le lien ci-dessous.
 
-    <a href="{confirmationUrl}">Ré-initialiser mon mot de passe maintenant</a>;
+    <a href="{confirmationUrl}">Réinitialiser mon mot de passe maintenant</a>;
 
     Ce lien expirera deux heures après l’envoi de cet e-mail.
 
@@ -32,9 +38,9 @@ password.request.email.html.body: |
     <p>Bonjour {username},
     <br />
     <br />
-    Vous avez récemment fait une demande de ré-initialisation de votre mot de passe. Pour terminer le processus, veuillez cliquer sur le lien ci-dessous.<br />
+    Vous avez récemment fait une demande de réinitialisation de votre mot de passe. Pour terminer le processus, veuillez cliquer sur le lien ci-dessous.<br />
     <br />
-    <a href="{confirmationUrl}">Ré-initialiser mon mot de passe maintenant</a><br />
+    <a href="{confirmationUrl}">Réinitialiser mon mot de passe maintenant</a><br />
     <br />
     Ce lien expirera deux heures après l’envoi de cet e-mail.<br />
     <br />
@@ -44,11 +50,18 @@ password.request.email.html.body: |
     <br />
     <br />
     Le service support.</p>
-password.request.sent: 'Un email de confirmation vient d''être envoyée à "{email}".'
+password.request.sent: |
+    Une demande de confirmation va vous être adressée par email à l'adresse suivante: <a href="mailto://{email}">{email}</a><br /><br />
+    Cet email contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.<br /><br />
+    <strong>Remarques :</strong>
+    <ul>
+    <li>Vous ne pouvez demander à réinitialiser votre mot de passe que toutes les {ttl} heures.</li>
+    <li>Si vous ne recevez pas cet email, vérifiez votre dossier spam ou essayez à nouveau.</li>
+    </ul>
 
 password.reset.invalid_token: "Token invalide."
 password.reset.new_password: "Nouveau mot de passe"
 password.reset.new_password_confirmation: "Nouveau mot de passe (confirmation)"
-password.reset.success: "Votre mot de passe à été ré-initialisé."
+password.reset.success: "Votre mot de passe à été réinitialisé."
 password.reset.password.mismatch: "Les deux mots de passe saisis sont différents."
-password.reset.button: "OK"
+password.reset.button: "Réinitialiser mon mot de passe"

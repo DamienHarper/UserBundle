@@ -6,13 +6,19 @@ login.submit.button: "Signin"
 login.request_password: "I forgot my password"
 login.exception.locked_account: "This account is locked."
 login.exception.deleted_account: "Invalid credentials."
-'Invalid credentials.': "Invalid credentials."
 
 password.request.username.label: "Username or email"
 password.request.username.placeholder: "Username or email"
-password.request.button: "OK"
+password.request.button: "Reset my password"
 password.request.invalid_username: "Invalid username."
-password.request.already_requested: "Password reset request already sent."
+password.request.already_requested: |
+    A confirmation email has already been sent to: <a href="mailto://{email}">{email}</a><br /><br />
+    <strong>Notes:</strong>
+    <ul>
+    <li>You can only ask to reset your password every {ttl} hours.</li>
+    <li>If you do not receive this email, please check your spam folder then try again later.</li>
+    </ul>
+
 password.request.email.subject: "Password reset request."
 password.request.email.text.body: |
     Hello {username},
@@ -43,12 +49,19 @@ password.request.email.html.body: |
     Regards,<br />
     <br />
     The support service.</p>
-password.request.sent: 'A confirmation email has been sent to "{email}".'
+password.request.sent: |
+    A confirmation email has been sent to: <a href="mailto://{email}">{email}</a><br /><br />
+    This email contains a link you have to click onto in order to reset your password.<br /><br />
+    <strong>Notes:</strong>
+    <ul>
+    <li>You can only ask to reset your password every {ttl} hours.</li>
+    <li>If you do not receive this email, please check your spam folder then try again later.</li>
+    </ul>
 
 password.reset.invalid_token: "Invalid token."
 password.reset.new_password: "New password"
 password.reset.new_password_confirmation: "New password (confirm)"
 password.reset.success: "Your password has been reset."
 password.reset.password.mismatch: "Password mismatch."
-password.reset.button: "OK"
+password.reset.button: "Reset my password"
 

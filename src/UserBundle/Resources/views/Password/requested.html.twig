@@ -5,5 +5,5 @@
 {% block title %}Password reset{% endblock title %}
 
 {% block dh_userbundle_body %}
-    {{ 'password.request.sent'|trans({'{email}': email}) }}
+    {{ 'password.request.sent'|trans({'{email}': email, '{ttl}': ttl})|raw }}
 {% endblock dh_userbundle_body %}
