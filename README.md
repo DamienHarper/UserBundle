@@ -3,7 +3,7 @@
 [![GitHub license](https://img.shields.io/github/license/DamienHarper/UserBundle.svg)](https://github.com/DamienHarper/UserBundle/blob/master/LICENSE)
 [![release-version-badge]][packagist]
 ![php-version-badge]
-[![Downloads](https://poser.pugx.org/damienharper/user-bundle/downloads)](https://packagist.org/packages/damienharper/user-bundle)
+[![Downloads](https://img.shields.io/packagist/dt/damienharper/user-bundle.svg)](https://packagist.org/packages/damienharper/user-bundle)
 
 
 This bundle, simple yet convenient, lets you easily add to your application features such as:
