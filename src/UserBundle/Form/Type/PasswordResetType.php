@@ -23,7 +23,7 @@ class PasswordResetType extends AbstractType
                     'label' => 'password.reset.new_password_confirmation',
                     'attr' => ['placeholder' => 'password.reset.new_password_confirmation']
                 ],
-                'invalid_message' => 'password.reset.password.mismatch',
+                'invalid_message' => 'password.reset.password_mismatch',
             ])
         ;
     }
