@@ -15,7 +15,7 @@
     "doctrine/orm": "^2.5"
   },
   "suggest": {
-    "scheb/two-factor-bundle": "Two factor authentication bundle",
+    "scheb/two-factor-bundle": "Two factor authentication bundle"
   },
   "autoload": {
     "psr-4": {
