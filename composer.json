@@ -14,6 +14,9 @@
     "php": ">=7.1",
     "doctrine/orm": "^2.5"
   },
+  "suggest": {
+    "scheb/two-factor-bundle": "Two factor authentication bundle",
+  },
   "autoload": {
     "psr-4": {
       "DH\\UserBundle\\": "src/UserBundle"
