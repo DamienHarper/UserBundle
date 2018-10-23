@@ -12,11 +12,11 @@ trait UserTrait
     /**
      * Sets plain-text password.
      *
-     * @param $plainPassword
+     * @param ?string $plainPassword
      *
      * @return $this
      */
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(?string $plainPassword)
     {
         $this->plain_password = $plainPassword;
 
