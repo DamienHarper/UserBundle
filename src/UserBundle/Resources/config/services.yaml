@@ -4,6 +4,13 @@ services:
         arguments: ["@doctrine", '@security.encoder_factory', '%dh_userbundle.user_class%']
         public: true
 
+    dh_userbundle.user_event_subscriber:
+        class: DH\UserBundle\Event\UserEventSubscriber
+        arguments: ['@security.encoder_factory']
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        public: true
+
     dh_userbundle.user_checker:
         class: DH\UserBundle\Security\UserChecker
         arguments: ['@doctrine']
