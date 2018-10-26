@@ -4,9 +4,17 @@ services:
         arguments: ["@doctrine", '@security.encoder_factory', '%dh_userbundle.user_class%']
         public: true
 
+    DH\UserBundle\Model\UserManager:
+        arguments: ['@security.encoder_factory']
+        public: true
+
+    dh_userbundle.user_manager:
+        alias: DH\UserBundle\Model\UserManager
+        public: true
+
     dh_userbundle.user_event_subscriber:
         class: DH\UserBundle\Event\UserEventSubscriber
-        arguments: ['@security.encoder_factory']
+        arguments: ['@dh_userbundle.user_manager']
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         public: true

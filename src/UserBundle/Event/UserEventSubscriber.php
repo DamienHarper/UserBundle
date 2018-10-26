@@ -2,24 +2,21 @@
 
 namespace DH\UserBundle\Event;
 
+use DH\UserBundle\Model\UserManager;
 use DH\UserBundle\Security\UserInterface;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class UserEventSubscriber implements EventSubscriber
 {
     /**
-     * @var PasswordEncoderInterface
+     * @var UserManager
      */
-    private $encoderFactory;
+    private $manager;
 
-    public function __construct(EncoderFactoryInterface $encoderFactory)
+    public function __construct(UserManager $manager)
     {
-        $this->encoderFactory = $encoderFactory;
+        $this->manager = $manager;
     }
 
     public function getSubscribedEvents()
@@ -34,7 +31,7 @@ class UserEventSubscriber implements EventSubscriber
     {
         $object = $args->getObject();
         if ($object instanceof UserInterface) {
-            $this->hashPassword($object);
+            $this->manager->hashPassword($object);
         }
     }
 
@@ -42,7 +39,7 @@ class UserEventSubscriber implements EventSubscriber
     {
         $object = $args->getObject();
         if ($object instanceof UserInterface) {
-            $this->hashPassword($object);
+            $this->manager->hashPassword($object);
             $meta = $args
                 ->getObjectManager()
                 ->getClassMetadata(get_class($object))
@@ -52,23 +49,6 @@ class UserEventSubscriber implements EventSubscriber
                 ->getUnitOfWork()
                 ->recomputeSingleEntityChangeSet($meta, $object)
             ;
-        }
-    }
-
-    private function hashPassword(UserInterface $user)
-    {
-        $plainPassword = $user->getPlainPassword();
-        if (0 !== strlen($plainPassword)) {
-            $salt = null;
-            if (!($this->encoderFactory->getEncoder($user) instanceof BCryptPasswordEncoder)) {
-                // salt is not used by bcrypt encoder
-                $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
-            }
-            $user->setSalt($salt);
-
-            $hashedPassword = $this->encoderFactory->getEncoder($user)->encodePassword($plainPassword, $user->getSalt());
-            $user->setPassword($hashedPassword);
-            $user->eraseCredentials();
         }
     }
 }
