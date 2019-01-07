@@ -8,6 +8,20 @@ services:
         arguments: ['@security.encoder_factory']
         public: true
 
+    DH\UserBundle\Controller\SecurityController:
+        calls:
+            - method: setContainer
+              arguments:
+                  - '@service_container'
+        public: true
+
+    DH\UserBundle\Controller\PasswordController:
+        calls:
+            - method: setContainer
+              arguments:
+                  - '@service_container'
+        public: true
+
     dh_userbundle.user_manager:
         alias: DH\UserBundle\Model\UserManager
         public: true
