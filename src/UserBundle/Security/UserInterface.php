@@ -64,16 +64,12 @@ interface UserInterface extends BaseUserInterface
     /**
      * Return true if user account is locked.
      *
-     * @param int $ttl
-     *
      * @return bool
      */
     public function isLocked(): bool;
 
     /**
      * Return true if user account is deleted.
-     *
-     * @param int $ttl
      *
      * @return bool
      */
@@ -82,16 +78,12 @@ interface UserInterface extends BaseUserInterface
     /**
      * Return true if user account is expired.
      *
-     * @param int $ttl
-     *
      * @return bool
      */
     public function isExpired(): bool;
 
     /**
      * Return true if user account has to reset its password at next authentication.
-     *
-     * @param int $ttl
      *
      * @return bool
      */
