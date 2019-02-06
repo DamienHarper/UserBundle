@@ -1,9 +1,11 @@
 # UserBundle 
 
-[![GitHub license](https://img.shields.io/github/license/DamienHarper/UserBundle.svg)](https://github.com/DamienHarper/UserBundle/blob/master/LICENSE)
-[![release-version-badge]][packagist]
-![php-version-badge]
-[![Downloads](https://img.shields.io/packagist/dt/damienharper/user-bundle.svg)](https://packagist.org/packages/damienharper/user-bundle)
+[![Latest Stable Version](https://poser.pugx.org/damienharper/user-bundle/v/stable)](https://packagist.org/packages/damienharper/user-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/damienharper/user-bundle/v/unstable)](https://packagist.org/packages/damienharper/user-bundle)
+[![Total Downloads](https://poser.pugx.org/damienharper/user-bundle/downloads)](https://packagist.org/packages/damienharper/user-bundle)
+[![License](https://poser.pugx.org/damienharper/user-bundle/license)](https://packagist.org/packages/damienharper/user-bundle)
+[![Monthly Downloads](https://poser.pugx.org/damienharper/user-bundle/d/monthly)](https://packagist.org/packages/damienharper/user-bundle)
+[![Daily Downloads](https://poser.pugx.org/damienharper/user-bundle/d/daily)](https://packagist.org/packages/damienharper/user-bundle)
 
 
 This bundle, simple yet convenient, lets you easily add to your application features such as:
@@ -230,11 +232,3 @@ License
 =======
 
 UserBundle is free to use and is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php)
-
-<!-- Badges -->
-[packagist]: https://packagist.org/packages/damienharper/user-bundle
-[release-version-badge]: https://img.shields.io/packagist/v/damienharper/user-bundle.svg?style=flat&label=release
-[license]: LICENSE
-[license-badge]: https://img.shields.io/github/license/DamienHarper/UserBundle.svg?style=flat
-[php-version-badge]: https://img.shields.io/packagist/php-v/damienharper/user-bundle.svg?style=flat
-
