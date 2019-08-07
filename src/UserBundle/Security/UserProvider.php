@@ -79,7 +79,6 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return true;
         return \in_array(UserInterface::class, class_implements($class), true);
     }
 }
