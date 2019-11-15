@@ -22,7 +22,7 @@ class UserChecker implements UserCheckerInterface
         $this->registry = $registry;
     }
 
-    public function checkPreAuth(UserInterface $user)
+    public function checkPreAuth(UserInterface $user): void
     {
         // user is deleted, show a generic Account Not Found message.
         if ($user->isDeleted()) {
@@ -55,7 +55,7 @@ class UserChecker implements UserCheckerInterface
         }
     }
 
-    public function checkPostAuth(UserInterface $user)
+    public function checkPostAuth(UserInterface $user): void
     {
     }
 }

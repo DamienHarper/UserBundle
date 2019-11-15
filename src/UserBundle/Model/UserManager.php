@@ -19,10 +19,10 @@ class UserManager
         $this->encoderFactory = $encoderFactory;
     }
 
-    public function hashPassword(UserInterface $user)
+    public function hashPassword(UserInterface $user): void
     {
         $plainPassword = $user->getPlainPassword();
-        if (0 !== strlen($plainPassword)) {
+        if (0 !== mb_strlen($plainPassword)) {
             $salt = null;
             if (!($this->encoderFactory->getEncoder($user) instanceof BCryptPasswordEncoder)) {
                 // salt is not used by bcrypt encoder

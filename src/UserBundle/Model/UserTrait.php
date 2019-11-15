@@ -73,12 +73,11 @@ trait UserTrait
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
-        [
+        list(
             $this->id,
             $this->username,
-            $this->password,
-        ] = unserialize($serialized, ['allowed_classes' => false]);
+            $this->password) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

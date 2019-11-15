@@ -13,8 +13,6 @@ class PasswordResetRequiredException extends AccountStatusException
 
     /**
      * Get the value of resetToken.
-     *
-     * @return string
      */
     public function getResetToken(): string
     {
@@ -23,8 +21,6 @@ class PasswordResetRequiredException extends AccountStatusException
 
     /**
      * Set the value of resetToken.
-     *
-     * @param string $resetToken
      */
     public function setResetToken(string $resetToken): void
     {
@@ -53,7 +49,7 @@ class PasswordResetRequiredException extends AccountStatusException
     /**
      * {@inheritdoc}
      */
-    public function unserialize($str)
+    public function unserialize($str): void
     {
         list($this->resetToken, $parentData) = unserialize($str);
 

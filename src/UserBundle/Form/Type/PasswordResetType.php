@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class PasswordResetType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('plainPassword', RepeatedType::class, [
@@ -17,11 +17,11 @@ class PasswordResetType extends AbstractType
                 'options' => ['translation_domain' => 'UserBundle'],
                 'first_options' => [
                     'label' => 'password.reset.new_password',
-                    'attr' => ['placeholder' => 'password.reset.new_password']
+                    'attr' => ['placeholder' => 'password.reset.new_password'],
                 ],
                 'second_options' => [
                     'label' => 'password.reset.new_password_confirmation',
-                    'attr' => ['placeholder' => 'password.reset.new_password_confirmation']
+                    'attr' => ['placeholder' => 'password.reset.new_password_confirmation'],
                 ],
                 'invalid_message' => 'password.reset.password_mismatch',
             ])

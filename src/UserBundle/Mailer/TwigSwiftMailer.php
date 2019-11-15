@@ -2,8 +2,11 @@
 
 namespace DH\UserBundle\Mailer;
 
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Twig_Environment;
 
 class TwigSwiftMailer
 {
@@ -12,7 +15,7 @@ class TwigSwiftMailer
     protected $twig;
     protected $parameters;
 
-    public function __construct(\Swift_Mailer $mailer, UrlGeneratorInterface $router, \Twig_Environment $twig, array $parameters)
+    public function __construct(Swift_Mailer $mailer, UrlGeneratorInterface $router, Twig_Environment $twig, array $parameters)
     {
         $this->mailer = $mailer;
         $this->router = $router;
@@ -20,7 +23,7 @@ class TwigSwiftMailer
         $this->parameters = $parameters;
     }
 
-    public function sendResetMessage(UserInterface $user)
+    public function sendResetMessage(UserInterface $user): void
     {
         $template = '@DHUser/Password/request_email.html.twig';
         $url = $this->router->generate(
@@ -42,7 +45,7 @@ class TwigSwiftMailer
      * @param string $fromEmail
      * @param string $toEmail
      */
-    protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
+    protected function sendMessage($templateName, $context, $fromEmail, $toEmail): void
     {
         $context = $this->twig->mergeGlobals($context);
         $template = $this->twig->loadTemplate($templateName);
@@ -50,7 +53,7 @@ class TwigSwiftMailer
         $textBody = $template->renderBlock('body_text', $context);
         $htmlBody = $template->renderBlock('body_html', $context);
 
-        $message = (new \Swift_Message())
+        $message = (new Swift_Message())
             ->setSubject($subject)
             ->setFrom($fromEmail)
             ->setTo($toEmail)

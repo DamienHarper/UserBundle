@@ -27,7 +27,7 @@ class UserEventSubscriber implements EventSubscriber
         ];
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
         if ($object instanceof UserInterface) {
@@ -35,14 +35,14 @@ class UserEventSubscriber implements EventSubscriber
         }
     }
 
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
         if ($object instanceof UserInterface) {
             $this->manager->hashPassword($object);
             $meta = $args
                 ->getObjectManager()
-                ->getClassMetadata(get_class($object))
+                ->getClassMetadata(\get_class($object))
             ;
             $args
                 ->getObjectManager()

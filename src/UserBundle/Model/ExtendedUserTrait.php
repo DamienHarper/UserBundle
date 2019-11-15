@@ -2,33 +2,11 @@
 
 namespace DH\UserBundle\Model;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 trait ExtendedUserTrait
 {
-    /**
-     * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $roles = [];
-
     /**
      * @ORM\Column(type="datetime", nullable=true, options={"default": NULL})
      */
@@ -63,6 +41,28 @@ trait ExtendedUserTrait
      * @var string
      */
     protected $plain_password;
+    /**
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
 
     /**
      * Get the value of username.
@@ -125,8 +125,6 @@ trait ExtendedUserTrait
     /**
      * Set the value of email.
      *
-     * @param string $email
-     *
      * @return UserTrait
      */
     public function setEmail(string $email): void
@@ -166,7 +164,7 @@ trait ExtendedUserTrait
      *
      * @return mixed
      */
-    public function getPasswordRequestedAt(): ?\DateTime
+    public function getPasswordRequestedAt(): ?DateTime
     {
         return $this->password_requested_at;
     }
@@ -178,7 +176,7 @@ trait ExtendedUserTrait
      *
      * @return UserTrait
      */
-    public function setPasswordRequestedAt(?\DateTime $passwordRequestedAt)
+    public function setPasswordRequestedAt(?DateTime $passwordRequestedAt)
     {
         $this->password_requested_at = $passwordRequestedAt;
 
@@ -214,7 +212,7 @@ trait ExtendedUserTrait
      *
      * @return mixed
      */
-    public function getExpiredAt(): ?\DateTime
+    public function getExpiredAt(): ?DateTime
     {
         return $this->expired_at;
     }
@@ -226,7 +224,7 @@ trait ExtendedUserTrait
      *
      * @return UserTrait
      */
-    public function setExpiredAt(?\DateTime $expiredAt)
+    public function setExpiredAt(?DateTime $expiredAt)
     {
         $this->expired_at = $expiredAt;
 
@@ -238,7 +236,7 @@ trait ExtendedUserTrait
      *
      * @return mixed
      */
-    public function getDeletedAt(): ?\DateTime
+    public function getDeletedAt(): ?DateTime
     {
         return $this->deleted_at;
     }
@@ -250,7 +248,7 @@ trait ExtendedUserTrait
      *
      * @return UserTrait
      */
-    public function setDeletedAt(?\DateTime $deletedAt)
+    public function setDeletedAt(?DateTime $deletedAt)
     {
         $this->deleted_at = $deletedAt;
 
@@ -356,10 +354,6 @@ trait ExtendedUserTrait
 
     /**
      * Checks if password request is expired.
-     *
-     * @param int $ttl
-     *
-     * @return bool
      */
     public function isPasswordRequestExpired(int $ttl): bool
     {
@@ -368,8 +362,6 @@ trait ExtendedUserTrait
 
     /**
      * Checks if a user account is deleted.
-     *
-     * @return bool
      */
     public function isDeleted(): bool
     {
@@ -378,8 +370,6 @@ trait ExtendedUserTrait
 
     /**
      * Checks if a user account is expired.
-     *
-     * @return bool
      */
     public function isExpired(): bool
     {
@@ -404,15 +394,14 @@ trait ExtendedUserTrait
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
-        [
+        list(
             $this->id,
             $this->username,
             $this->password,
             $this->expired_at,
             $this->deleted_at,
-            $this->is_locked,
-        ] = unserialize($serialized, ['allowed_classes' => false]);
+            $this->is_locked) = unserialize($serialized, ['allowed_classes' => false]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace DH\UserBundle\Controller;
 
+use DateTime;
 use DH\UserBundle\Event\PasswordRequestEvent;
 use DH\UserBundle\Event\PasswordResetEvent;
 use DH\UserBundle\Form\Type\PasswordRequestType;
@@ -11,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class PasswordController extends AbstractController
@@ -57,34 +57,29 @@ class PasswordController extends AbstractController
                 ]);
             }
         } catch (UsernameNotFoundException $e) {
-            $this->get('session')->getFlashBag()->add(
-                'error',
-                $this->get('translator')->trans('password.request.invalid_username', [], 'UserBundle')
-            );
-
-            return $this->render('@DHUser/Password/request.html.twig', [
-                'form' => $form->createView(),
-            ]);
+            $user = null;
         }
 
-        $ttl = $this->container->getParameter('dh_userbundle.password_reset.token_ttl');
-        if (!$user->isPasswordRequestExpired($ttl)) {
-            return $this->render('@DHUser/Password/already_requested.html.twig', [
-                'email' => $user->getEmail(),
-                'ttl' => $ttl / 60 / 60,
-            ]);
+        if (null !== $user) {
+            $ttl = $this->container->getParameter('dh_userbundle.password_reset.token_ttl');
+            if (!$user->isPasswordRequestExpired($ttl)) {
+                return $this->render('@DHUser/Password/already_requested.html.twig', [
+                    'email' => $user->getEmail(),
+                    'ttl' => $ttl / 60 / 60,
+                ]);
+            }
+
+            if (null === $user->getResetToken()) {
+                $user->setResetToken(TokenGenerator::generateToken());
+            }
+
+            $mailer = $this->get('dh_userbundle.mailer');
+            $mailer->sendResetMessage($user);
+
+            $user->setPasswordRequestedAt(new DateTime());
+            $this->getDoctrine()->getManager()->persist($user);
+            $this->getDoctrine()->getManager()->flush();
         }
-
-        if (null === $user->getResetToken()) {
-            $user->setResetToken(TokenGenerator::generateToken());
-        }
-
-        $mailer = $this->get('dh_userbundle.mailer');
-        $mailer->sendResetMessage($user);
-
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->getDoctrine()->getManager()->persist($user);
-        $this->getDoctrine()->getManager()->flush();
 
         $dispatcher = $this->get('event_dispatcher');
         if (null !== $dispatcher) {
@@ -98,7 +93,7 @@ class PasswordController extends AbstractController
 
         return new RedirectResponse($this->get('router')->generate(
             'dh_userbundle_password_request_sent',
-            ['email' => $user->getEmail()]
+            ['email' => null === $user ? null : $user->getEmail()]
         ));
     }
 
@@ -111,11 +106,6 @@ class PasswordController extends AbstractController
     {
         $email = $request->query->get('email');
         $ttl = $this->container->getParameter('dh_userbundle.password_reset.token_ttl');
-
-        if (empty($email)) {
-            // the user does not come from the sendEmail action
-            return new RedirectResponse($this->get('router')->generate('dh_userbundle_security_request'));
-        }
 
         return $this->render('@DHUser/Password/requested.html.twig', [
             'email' => $email,
@@ -160,7 +150,7 @@ class PasswordController extends AbstractController
                 ]);
             }
 
-            if (0 !== strlen($password = $user->getPlainPassword())) {
+            if (0 !== mb_strlen($password = $user->getPlainPassword())) {
                 $encoder = $this->get('dh_userbundle.user_provider')->getEncoder($user);
                 $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
                 $user->eraseCredentials();
@@ -192,9 +182,8 @@ class PasswordController extends AbstractController
             );
 
             $url = $this->get('router')->generate('dh_userbundle_login');
-            $response = new RedirectResponse($url);
 
-            return $response;
+            return new RedirectResponse($url);
         }
 
         return $this->render('@DHUser/Password/reset.html.twig', [

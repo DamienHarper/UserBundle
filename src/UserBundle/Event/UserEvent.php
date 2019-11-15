@@ -16,10 +16,10 @@ class UserEvent extends Event
      * @param \Symfony\Component\Security\Core\User\UserInterface $user
      * @param array                                               $data
      */
-    public function __construct(UserInterface $user = null, $data = null)
+    public function __construct(?UserInterface $user = null, $data = null)
     {
         $this->user = $user;
-        $this->data = null === $data || !is_array($data) ? [] : $data;
+        $this->data = null === $data || !\is_array($data) ? [] : $data;
     }
 
     /**

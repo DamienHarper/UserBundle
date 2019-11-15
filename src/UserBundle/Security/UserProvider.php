@@ -37,7 +37,8 @@ class UserProvider implements UserProviderInterface
             ->setParameter('username', $username)
             ->setParameter('email', $username)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
 
         if (null === $user) {
             throw new UsernameNotFoundException();
@@ -52,7 +53,8 @@ class UserProvider implements UserProviderInterface
             ->where('u.reset_token = :token')
             ->setParameter('token', $token)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
 
         if (null === $user) {
             throw new UsernameNotFoundException();

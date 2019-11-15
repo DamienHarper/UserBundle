@@ -4,6 +4,7 @@ namespace DH\UserBundle\Controller;
 
 use DH\UserBundle\Exception\PasswordResetRequiredException;
 use DH\UserBundle\Form\Type\LoginType;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -55,6 +56,6 @@ class SecurityController extends AbstractController
      */
     public function logout(): void
     {
-        throw new \Exception('This should never be reached!');
+        throw new Exception('This should never be reached!');
     }
 }
