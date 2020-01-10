@@ -2,7 +2,7 @@
 
 namespace DH\UserBundle\Security;
 
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -15,7 +15,7 @@ class UserProvider implements UserProviderInterface
     private $encoder;
     private $userClass;
 
-    public function __construct(RegistryInterface $registry, EncoderFactoryInterface $encoder, $userClass)
+    public function __construct(ManagerRegistry $registry, EncoderFactoryInterface $encoder, $userClass)
     {
         $this->registry = $registry;
         $this->encoder = $encoder;

@@ -5,7 +5,7 @@ namespace DH\UserBundle\Security;
 use DH\UserBundle\Exception\AccountDeletedException;
 use DH\UserBundle\Exception\AccountLockedException;
 use DH\UserBundle\Exception\PasswordResetRequiredException;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,7 +17,7 @@ class UserChecker implements UserCheckerInterface
 {
     private $registry;
 
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         $this->registry = $registry;
     }
