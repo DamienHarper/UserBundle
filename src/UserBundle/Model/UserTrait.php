@@ -11,12 +11,8 @@ trait UserTrait
 
     /**
      * Sets plain-text password.
-     *
-     * @param ?string $plainPassword
-     *
-     * @return $this
      */
-    public function setPlainPassword(?string $plainPassword)
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plain_password = $plainPassword;
 
@@ -25,8 +21,6 @@ trait UserTrait
 
     /**
      * Returns plain-text password.
-     *
-     * @return string
      */
     public function getPlainPassword(): ?string
     {
@@ -51,7 +45,7 @@ trait UserTrait
      * This is important if, at any given point, sensitive information like
      * the plain-text password is stored on this object.
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): self
     {
         $this->plain_password = null;
 

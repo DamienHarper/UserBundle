@@ -2,21 +2,15 @@
 
 namespace DH\UserBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class UserEvent extends Event
 {
     protected $user;
     protected $data;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user
-     * @param array                                               $data
-     */
-    public function __construct(?UserInterface $user = null, $data = null)
+    public function __construct(?UserInterface $user = null, ?array $data = null)
     {
         $this->user = $user;
         $this->data = null === $data || !\is_array($data) ? [] : $data;
@@ -24,20 +18,16 @@ class UserEvent extends Event
 
     /**
      * Returns user.
-     *
-     * @return UserInterface
      */
-    public function getUser()
+    public function getUser(): UserInterface
     {
         return $this->user;
     }
 
     /**
      * Returns data.
-     *
-     * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         return $this->data;
     }

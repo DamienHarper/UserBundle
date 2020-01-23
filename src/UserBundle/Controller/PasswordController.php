@@ -2,7 +2,7 @@
 
 namespace DH\UserBundle\Controller;
 
-use DateTime;
+use DateTimeImmutable;
 use DH\UserBundle\Event\PasswordRequestEvent;
 use DH\UserBundle\Event\PasswordResetEvent;
 use DH\UserBundle\Form\Type\PasswordRequestType;
@@ -11,6 +11,7 @@ use DH\UserBundle\Security\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
@@ -21,7 +22,7 @@ class PasswordController extends AbstractController
      *
      * @Route("/lost-password", name="dh_userbundle_password_request", methods={"GET"})
      */
-    public function requestAction()
+    public function requestAction(): Response
     {
         $form = $this->createForm(PasswordRequestType::class);
 
@@ -35,7 +36,7 @@ class PasswordController extends AbstractController
      *
      * @Route("/lost-password", name="dh_userbundle_password_request_send", methods={"POST"})
      */
-    public function sendAction(Request $request)
+    public function sendAction(Request $request): Response
     {
         $form = $this->createForm(PasswordRequestType::class);
         $form->handleRequest($request);
@@ -76,7 +77,7 @@ class PasswordController extends AbstractController
             $mailer = $this->get('dh_userbundle.mailer');
             $mailer->sendResetMessage($user);
 
-            $user->setPasswordRequestedAt(new DateTime());
+            $user->setPasswordRequestedAt(new DateTimeImmutable());
             $this->getDoctrine()->getManager()->persist($user);
             $this->getDoctrine()->getManager()->flush();
         }
@@ -102,7 +103,7 @@ class PasswordController extends AbstractController
      *
      * @Route("/lost-password-confirmation", name="dh_userbundle_password_request_sent", methods={"GET"})
      */
-    public function sentAction(Request $request)
+    public function sentAction(Request $request): Response
     {
         $email = $request->query->get('email');
         $ttl = $this->container->getParameter('dh_userbundle.password_reset.token_ttl');
@@ -117,10 +118,8 @@ class PasswordController extends AbstractController
      * Resets user password.
      *
      * @Route("/password-reset/{token}", name="dh_userbundle_password_reset", methods={"GET", "POST"})
-     *
-     * @param mixed $token
      */
-    public function resetAction(Request $request, ?string $token)
+    public function resetAction(Request $request, ?string $token): Response
     {
         try {
             $user = $this->get('dh_userbundle.user_provider')->findUserByResetToken($token);
@@ -150,7 +149,7 @@ class PasswordController extends AbstractController
                 ]);
             }
 
-            if (0 !== mb_strlen($password = $user->getPlainPassword())) {
+            if ($password = ('' !== $user->getPlainPassword())) {
                 $encoder = $this->get('dh_userbundle.user_provider')->getEncoder($user);
                 $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
                 $user->eraseCredentials();

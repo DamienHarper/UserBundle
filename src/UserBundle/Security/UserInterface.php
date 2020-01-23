@@ -2,7 +2,7 @@
 
 namespace DH\UserBundle\Security;
 
-use DateTime;
+use DateTimeInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 interface UserInterface extends BaseUserInterface
@@ -15,14 +15,12 @@ interface UserInterface extends BaseUserInterface
     /**
      * Get the value of password_requested_at.
      */
-    public function getPasswordRequestedAt(): ?DateTime;
+    public function getPasswordRequestedAt(): ?DateTimeInterface;
 
     /**
      * Set the value of password_requested_at.
-     *
-     * @return self
      */
-    public function setPasswordRequestedAt(?DateTime $passwordRequestedAt);
+    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt): self;
 
     /**
      * Returns plain-text password.
@@ -43,10 +41,8 @@ interface UserInterface extends BaseUserInterface
 
     /**
      * Set the value of reset_token.
-     *
-     * @return self
      */
-    public function setResetToken(?string $token);
+    public function setResetToken(?string $token): self;
 
     /**
      * Return true if user account is locked.

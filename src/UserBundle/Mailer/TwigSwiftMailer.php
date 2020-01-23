@@ -39,13 +39,7 @@ class TwigSwiftMailer
         $this->sendMessage($template, $context, $this->parameters['email_from'], $user->getEmail());
     }
 
-    /**
-     * @param string $templateName
-     * @param array  $context
-     * @param string $fromEmail
-     * @param string $toEmail
-     */
-    protected function sendMessage($templateName, $context, $fromEmail, $toEmail): void
+    protected function sendMessage(string $templateName, array $context, string $fromEmail, string $toEmail): void
     {
         $context = $this->twig->mergeGlobals($context);
         $template = $this->twig->load($templateName);
