@@ -6,10 +6,11 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface
+class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     private $registry;
     private $encoder;
@@ -82,5 +83,11 @@ class UserProvider implements UserProviderInterface
     public function supportsClass($class)
     {
         return \in_array(UserInterface::class, class_implements($class), true);
+    }
+
+    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    {
+        $user->setPassword($newEncodedPassword);
+        $this->registry->getManager()->flush();
     }
 }
