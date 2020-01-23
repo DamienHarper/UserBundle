@@ -13,7 +13,10 @@
   "require": {
     "php": ">=7.1",
     "doctrine/orm": "^2.7",
-    "symfony/security": "^4.3"
+    "symfony/security": "^4.3",
+    "twig/twig": "^3.0",
+    "symfony/swiftmailer-bundle": "^3.4",
+    "symfony/routing": "^4.4|^5.0"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.11.2",

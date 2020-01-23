@@ -6,7 +6,7 @@ use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Twig_Environment;
+use Twig\Environment;
 
 class TwigSwiftMailer
 {
@@ -15,7 +15,7 @@ class TwigSwiftMailer
     protected $twig;
     protected $parameters;
 
-    public function __construct(Swift_Mailer $mailer, UrlGeneratorInterface $router, Twig_Environment $twig, array $parameters)
+    public function __construct(Swift_Mailer $mailer, UrlGeneratorInterface $router, Environment $twig, array $parameters)
     {
         $this->mailer = $mailer;
         $this->router = $router;
