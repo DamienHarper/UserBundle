@@ -48,7 +48,7 @@ class TwigSwiftMailer
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail): void
     {
         $context = $this->twig->mergeGlobals($context);
-        $template = $this->twig->loadTemplate($templateName);
+        $template = $this->twig->load($templateName);
         $subject = $template->renderBlock('subject', $context);
         $textBody = $template->renderBlock('body_text', $context);
         $htmlBody = $template->renderBlock('body_html', $context);
