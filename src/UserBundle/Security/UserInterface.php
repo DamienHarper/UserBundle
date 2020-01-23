@@ -20,7 +20,7 @@ interface UserInterface extends BaseUserInterface
     /**
      * Set the value of password_requested_at.
      */
-    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt): self;
+    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt);
 
     /**
      * Returns plain-text password.
