@@ -2,7 +2,7 @@
   "name": "damienharper/user-bundle",
   "type": "symfony-bundle",
   "description": "User Bundle",
-  "keywords": ["user"],
+  "keywords": ["user", "user management"],
   "license": "MIT",
   "authors": [
     {
@@ -11,21 +11,29 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
+    "php": "^7.1",
     "doctrine/orm": "^2.7",
-    "symfony/security": "^4.3",
-    "twig/twig": "^3.0",
+    "symfony/form": "^4.3 || ^5.0",
+    "symfony/framework-bundle": "^4.3 || ^5.0",
+    "symfony/routing": "^4.3 || ^5.0",
+    "symfony/security-bundle": "^4.3 || ^5.0",
     "symfony/swiftmailer-bundle": "^3.4",
-    "symfony/routing": "^4.4|^5.0"
+    "symfony/twig-bundle": "^4.3 || ^5.0",
+    "twig/twig": "^1.28 || ^2.0 || ^3.0"
   },
   "require-dev": {
-    "phpstan/phpstan": "^0.11.2",
-    "phpstan/phpstan-doctrine": "^0.11.1",
-    "phpstan/phpstan-symfony": "^0.11.1",
-    "friendsofphp/php-cs-fixer": "^2.15"
+    "friendsofphp/php-cs-fixer": "^2.15",
+    "phpstan/phpstan": "^0.12",
+    "phpstan/phpstan-doctrine": "^0.12",
+    "phpstan/phpstan-symfony": "^0.12",
+    "symfony/validator": "^4.3 || ^5.0"
+  },
+  "config": {
+    "sort-packages": true
   },
   "suggest": {
-    "scheb/two-factor-bundle": "Two factor authentication bundle"
+    "scheb/two-factor-bundle": "Two factor authentication bundle",
+    "symfony/validator": "To use validation on ExtendedUserTrait"
   },
   "autoload": {
     "psr-4": {

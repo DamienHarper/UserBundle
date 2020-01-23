@@ -2,8 +2,9 @@
 
 namespace DH\UserBundle\Model;
 
-use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait ExtendedUserTrait
 {
@@ -41,6 +42,7 @@ trait ExtendedUserTrait
      * @var string
      */
     protected $plain_password;
+
     /**
      * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank
@@ -49,6 +51,7 @@ trait ExtendedUserTrait
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -66,22 +69,16 @@ trait ExtendedUserTrait
 
     /**
      * Get the value of username.
-     *
-     * @return mixed
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
 
     /**
      * Set the value of username.
-     *
-     * @param mixed $username
-     *
-     * @return UserTrait
      */
-    public function setUsername($username)
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -90,22 +87,16 @@ trait ExtendedUserTrait
 
     /**
      * Get the value of password.
-     *
-     * @return mixed
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
     /**
      * Set the value of password.
-     *
-     * @param mixed $password
-     *
-     * @return UserTrait
      */
-    public function setPassword($password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -149,10 +140,8 @@ trait ExtendedUserTrait
      * Set the value of roles.
      *
      * @param mixed $roles
-     *
-     * @return UserTrait
      */
-    public function setRoles($roles)
+    public function setRoles($roles): self
     {
         $this->roles = $roles;
 
@@ -164,19 +153,15 @@ trait ExtendedUserTrait
      *
      * @return mixed
      */
-    public function getPasswordRequestedAt(): ?DateTime
+    public function getPasswordRequestedAt(): ?DateTimeInterface
     {
         return $this->password_requested_at;
     }
 
     /**
      * Set the value of password_requested_at.
-     *
-     * @param mixed $passwordRequestedAt
-     *
-     * @return UserTrait
      */
-    public function setPasswordRequestedAt(?DateTime $passwordRequestedAt)
+    public function setPasswordRequestedAt(?DateTimeInterface $passwordRequestedAt): self
     {
         $this->password_requested_at = $passwordRequestedAt;
 
@@ -197,10 +182,8 @@ trait ExtendedUserTrait
      * Set the value of reset_token.
      *
      * @param mixed $resetToken
-     *
-     * @return UserTrait
      */
-    public function setResetToken(?string $resetToken)
+    public function setResetToken(?string $resetToken): UserTrait
     {
         $this->reset_token = $resetToken;
 
@@ -212,19 +195,15 @@ trait ExtendedUserTrait
      *
      * @return mixed
      */
-    public function getExpiredAt(): ?DateTime
+    public function getExpiredAt(): ?DateTimeInterface
     {
         return $this->expired_at;
     }
 
     /**
      * Set the value of expired_at.
-     *
-     * @param mixed $expiredAt
-     *
-     * @return UserTrait
      */
-    public function setExpiredAt(?DateTime $expiredAt)
+    public function setExpiredAt(?DateTimeInterface $expiredAt): self
     {
         $this->expired_at = $expiredAt;
 
@@ -233,22 +212,16 @@ trait ExtendedUserTrait
 
     /**
      * Get the value of deleted_at.
-     *
-     * @return mixed
      */
-    public function getDeletedAt(): ?DateTime
+    public function getDeletedAt(): ?DateTimeInterface
     {
         return $this->deleted_at;
     }
 
     /**
      * Set the value of deleted_at.
-     *
-     * @param mixed $deletedAt
-     *
-     * @return UserTrait
      */
-    public function setDeletedAt(?DateTime $deletedAt)
+    public function setDeletedAt(?DateTimeInterface $deletedAt): self
     {
         $this->deleted_at = $deletedAt;
 
@@ -257,8 +230,6 @@ trait ExtendedUserTrait
 
     /**
      * Get the value of is_locked.
-     *
-     * @return mixed
      */
     public function isLocked(): bool
     {
@@ -267,12 +238,8 @@ trait ExtendedUserTrait
 
     /**
      * Set the value of is_locked.
-     *
-     * @param mixed $isLocked
-     *
-     * @return UserTrait
      */
-    public function setIsLocked($isLocked)
+    public function setIsLocked(bool $isLocked): self
     {
         $this->is_locked = $isLocked;
 
@@ -281,8 +248,6 @@ trait ExtendedUserTrait
 
     /**
      * Get the value of is_password_reset_required.
-     *
-     * @return mixed
      */
     public function isPasswordResetRequired(): bool
     {
@@ -291,12 +256,8 @@ trait ExtendedUserTrait
 
     /**
      * Set the value of is_password_reset_required.
-     *
-     * @param mixed $isPasswordResetRequired
-     *
-     * @return UserTrait
      */
-    public function setIsPasswordResetRequired($isPasswordResetRequired)
+    public function setIsPasswordResetRequired(bool $isPasswordResetRequired): self
     {
         $this->is_password_reset_required = $isPasswordResetRequired;
 
@@ -305,12 +266,8 @@ trait ExtendedUserTrait
 
     /**
      * Sets plain-text password.
-     *
-     * @param $plainPassword
-     *
-     * @return $this
      */
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plain_password = $plainPassword;
 
