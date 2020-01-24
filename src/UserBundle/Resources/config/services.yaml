@@ -39,6 +39,6 @@ services:
         public: true
 
     dh_userbundle.mailer:
-        class: DH\UserBundle\Mailer\TwigSwiftMailer
+        class: DH\UserBundle\Mailer\TwigMailer
         arguments: ['@mailer', '@router', '@twig', { 'email_from': '%dh_userbundle.password_reset.email_from%' }]
         public: true
