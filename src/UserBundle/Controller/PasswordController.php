@@ -9,6 +9,7 @@ use DH\UserBundle\Form\Type\PasswordRequestType;
 use DH\UserBundle\Form\Type\PasswordResetType;
 use DH\UserBundle\Security\TokenGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,6 +83,7 @@ class PasswordController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
         }
 
+        /** @var EventDispatcher $dispatcher */
         $dispatcher = $this->get('event_dispatcher');
         if (null !== $dispatcher) {
             $event = new PasswordRequestEvent($user, [
@@ -89,7 +91,7 @@ class PasswordController extends AbstractController
                 'referer' => $request->headers->get('referer'),
                 'user-agent' => $request->headers->get('User-Agent'),
             ]);
-            $dispatcher->dispatch('security.password.requested', $event);
+            $dispatcher->dispatch($event, 'security.password.requested');
         }
 
         return new RedirectResponse($this->get('router')->generate(
@@ -162,6 +164,7 @@ class PasswordController extends AbstractController
                 $user->setIsPasswordResetRequired(0);
             }
 
+            /** @var EventDispatcher $dispatcher */
             $dispatcher = $this->get('event_dispatcher');
             if (null !== $dispatcher) {
                 $event = new PasswordResetEvent($user, [
@@ -169,7 +172,7 @@ class PasswordController extends AbstractController
                     'referer' => $request->headers->get('referer'),
                     'user-agent' => $request->headers->get('User-Agent'),
                 ]);
-                $dispatcher->dispatch('user.password.reset', $event);
+                $dispatcher->dispatch($event, 'user.password.reset');
             }
 
             $this->getDoctrine()->getManager()->persist($user);
