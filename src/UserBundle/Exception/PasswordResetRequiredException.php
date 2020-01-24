@@ -38,21 +38,17 @@ class PasswordResetRequiredException extends AccountStatusException
     /**
      * {@inheritdoc}
      */
-    public function serialize()
+    public function __serialize(): array
     {
-        return serialize([
-            $this->resetToken,
-            parent::serialize(),
-        ]);
+        return [$this->resetToken, parent::__serialize()];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function unserialize($str): void
+    public function __unserialize(array $data): void
     {
-        list($this->resetToken, $parentData) = unserialize($str);
-
-        parent::unserialize($parentData);
+        [$this->resetToken, $parentData] = $data;
+        parent::__unserialize($parentData);
     }
 }
