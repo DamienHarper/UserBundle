@@ -8,7 +8,9 @@ use DH\UserBundle\Event\PasswordResetEvent;
 use DH\UserBundle\Form\Type\PasswordRequestType;
 use DH\UserBundle\Form\Type\PasswordResetType;
 use DH\UserBundle\Security\TokenGenerator;
+use DH\UserBundle\Security\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,6 +84,7 @@ class PasswordController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
         }
 
+        /** @var EventDispatcher $dispatcher */
         $dispatcher = $this->get('event_dispatcher');
         if (null !== $dispatcher) {
             $event = new PasswordRequestEvent($user, [
@@ -89,7 +92,7 @@ class PasswordController extends AbstractController
                 'referer' => $request->headers->get('referer'),
                 'user-agent' => $request->headers->get('User-Agent'),
             ]);
-            $dispatcher->dispatch('security.password.requested', $event);
+            $dispatcher->dispatch($event, 'security.password.requested');
         }
 
         return new RedirectResponse($this->get('router')->generate(
@@ -140,6 +143,7 @@ class PasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UserInterface $user */
             $user = $form->getData();
 
             if (null === $user->getPlainPassword()) {
@@ -149,9 +153,9 @@ class PasswordController extends AbstractController
                 ]);
             }
 
-            if ($password = ('' !== $user->getPlainPassword())) {
+            if ('' !== $user->getPlainPassword()) {
                 $encoder = $this->get('dh_userbundle.user_provider')->getEncoder($user);
-                $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
+                $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
                 $user->eraseCredentials();
             }
 
@@ -162,6 +166,7 @@ class PasswordController extends AbstractController
                 $user->setIsPasswordResetRequired(0);
             }
 
+            /** @var EventDispatcher $dispatcher */
             $dispatcher = $this->get('event_dispatcher');
             if (null !== $dispatcher) {
                 $event = new PasswordResetEvent($user, [
@@ -169,7 +174,7 @@ class PasswordController extends AbstractController
                     'referer' => $request->headers->get('referer'),
                     'user-agent' => $request->headers->get('User-Agent'),
                 ]);
-                $dispatcher->dispatch('user.password.reset', $event);
+                $dispatcher->dispatch($event, 'user.password.reset');
             }
 
             $this->getDoctrine()->getManager()->persist($user);

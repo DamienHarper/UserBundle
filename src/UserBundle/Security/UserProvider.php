@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
+class UserProvider implements PasswordUpgraderInterface, UserProviderInterface
 {
     private $registry;
     private $encoder;

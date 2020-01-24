@@ -4,6 +4,10 @@ services:
         arguments: ["@doctrine", '@security.encoder_factory', '%dh_userbundle.user_class%']
         public: true
 
+    dh_userbundle.user_manager:
+        alias: DH\UserBundle\Model\UserManager
+        public: true
+
     DH\UserBundle\Model\UserManager:
         arguments: ['@security.encoder_factory']
         public: true
@@ -22,10 +26,6 @@ services:
                   - '@service_container'
         public: true
 
-    dh_userbundle.user_manager:
-        alias: DH\UserBundle\Model\UserManager
-        public: true
-
     dh_userbundle.user_event_subscriber:
         class: DH\UserBundle\Event\UserEventSubscriber
         arguments: ['@dh_userbundle.user_manager']
@@ -39,6 +39,6 @@ services:
         public: true
 
     dh_userbundle.mailer:
-        class: DH\UserBundle\Mailer\TwigSwiftMailer
+        class: DH\UserBundle\Mailer\TwigMailer
         arguments: ['@mailer', '@router', '@twig', { 'email_from': '%dh_userbundle.password_reset.email_from%' }]
         public: true

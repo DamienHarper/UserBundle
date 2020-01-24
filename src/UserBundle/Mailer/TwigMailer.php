@@ -2,20 +2,36 @@
 
 namespace DH\UserBundle\Mailer;
 
-use Swift_Mailer;
-use Swift_Message;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 
-class TwigSwiftMailer
+class TwigMailer
 {
+    /**
+     * @var MailerInterface
+     */
     protected $mailer;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
     protected $router;
+
+    /**
+     * @var Environment
+     */
     protected $twig;
+
+    /**
+     * @var array
+     */
     protected $parameters;
 
-    public function __construct(Swift_Mailer $mailer, UrlGeneratorInterface $router, Environment $twig, array $parameters)
+    public function __construct(MailerInterface $mailer, UrlGeneratorInterface $router, Environment $twig, array $parameters)
     {
         $this->mailer = $mailer;
         $this->router = $router;
@@ -47,21 +63,14 @@ class TwigSwiftMailer
         $textBody = $template->renderBlock('body_text', $context);
         $htmlBody = $template->renderBlock('body_html', $context);
 
-        $message = (new Swift_Message())
-            ->setSubject($subject)
-            ->setFrom($fromEmail)
-            ->setTo($toEmail)
+        $email = (new Email())
+            ->from(new Address($fromEmail))
+            ->to($toEmail)
+            ->subject($subject)
+            ->text($textBody)
+            ->html($htmlBody)
         ;
 
-        if (!empty($htmlBody)) {
-            $message
-                ->setBody($htmlBody, 'text/html')
-                ->addPart($textBody, 'text/plain')
-            ;
-        } else {
-            $message->setBody($textBody);
-        }
-
-        $this->mailer->send($message);
+        $this->mailer->send($email);
     }
 }
