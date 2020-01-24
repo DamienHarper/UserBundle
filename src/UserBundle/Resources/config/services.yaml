@@ -4,6 +4,10 @@ services:
         arguments: ["@doctrine", '@security.encoder_factory', '%dh_userbundle.user_class%']
         public: true
 
+    dh_userbundle.user_manager:
+        alias: DH\UserBundle\Model\UserManager
+        public: true
+
     DH\UserBundle\Model\UserManager:
         arguments: ['@security.encoder_factory']
         public: true
@@ -20,10 +24,6 @@ services:
             - method: setContainer
               arguments:
                   - '@service_container'
-        public: true
-
-    dh_userbundle.user_manager:
-        alias: DH\UserBundle\Model\UserManager
         public: true
 
     dh_userbundle.user_event_subscriber:

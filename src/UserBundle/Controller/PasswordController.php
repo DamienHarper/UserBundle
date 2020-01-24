@@ -8,6 +8,7 @@ use DH\UserBundle\Event\PasswordResetEvent;
 use DH\UserBundle\Form\Type\PasswordRequestType;
 use DH\UserBundle\Form\Type\PasswordResetType;
 use DH\UserBundle\Security\TokenGenerator;
+use DH\UserBundle\Security\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -142,6 +143,7 @@ class PasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UserInterface $user */
             $user = $form->getData();
 
             if (null === $user->getPlainPassword()) {
@@ -151,9 +153,9 @@ class PasswordController extends AbstractController
                 ]);
             }
 
-            if ($password = ('' !== $user->getPlainPassword())) {
+            if ('' !== $user->getPlainPassword()) {
                 $encoder = $this->get('dh_userbundle.user_provider')->getEncoder($user);
-                $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
+                $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
                 $user->eraseCredentials();
             }
 

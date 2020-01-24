@@ -2,7 +2,6 @@
 
 namespace DH\UserBundle\Model;
 
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,14 +22,7 @@ class UserManager
     {
         $plainPassword = $user->getPlainPassword();
         if (0 !== mb_strlen($plainPassword)) {
-            $salt = null;
-            if (!($this->encoderFactory->getEncoder($user) instanceof BCryptPasswordEncoder)) {
-                // salt is not used by bcrypt encoder
-                $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
-            }
-            $user->setSalt($salt);
-
-            $hashedPassword = $this->encoderFactory->getEncoder($user)->encodePassword($plainPassword, $user->getSalt());
+            $hashedPassword = $this->encoderFactory->getEncoder($user)->encodePassword($plainPassword);
             $user->setPassword($hashedPassword);
             $user->eraseCredentials();
         }
