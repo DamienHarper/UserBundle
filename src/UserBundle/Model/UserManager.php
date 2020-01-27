@@ -22,7 +22,7 @@ class UserManager
     {
         $plainPassword = $user->getPlainPassword();
         if (0 !== mb_strlen($plainPassword)) {
-            $hashedPassword = $this->encoderFactory->getEncoder($user)->encodePassword($plainPassword);
+            $hashedPassword = $this->encoderFactory->getEncoder($user)->encodePassword($plainPassword, null);
             $user->setPassword($hashedPassword);
             $user->eraseCredentials();
         }
