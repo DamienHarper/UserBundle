@@ -13,6 +13,8 @@ services:
         public: true
 
     DH\UserBundle\Controller\SecurityController:
+        tags:
+            - 'controller.service_arguments'
         calls:
             - method: setContainer
               arguments:
