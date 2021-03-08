@@ -15,13 +15,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="dh_userbundle_login", methods={"GET", "POST"})
      */
-    public function login(): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        /**
-         * @var AuthenticationUtils
-         */
-        $authenticationUtils = $this->get('security.authentication_utils');
-
         // get the login error if there is one
         $lastError = $authenticationUtils->getLastAuthenticationError();
         if (null !== $lastError) {
